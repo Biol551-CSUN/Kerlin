@@ -6,4 +6,3 @@
  * [Week 2](https://github.com/Biol551-CSUN/Kerlin/tree/main/Week_2)
    * [Week 2 Data](https://github.com/Biol551-CSUN/Kerlin/tree/main/Week_2/Data)
    * [Week 2 Scripts](https://github.com/Biol551-CSUN/Kerlin/tree/main/Week_2/Scripts)
-   * [Week 2 Output](https://github.com/Biol551-CSUN/Kerlin/tree/main/Week_2/Output)
