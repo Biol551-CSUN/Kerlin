@@ -1,0 +1,73 @@
+---
+title: "RMarkdown Lab Assignment"
+author: "Jamie, Claudia, Roland, and Jasmin"
+date: "2021-03-03"
+output: 
+  html_document: 
+   toc: TRUE
+   toc_float: TRUE
+   theme: spacelab
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, #we want to show our script, so keeping this TRUE
+                      message = FALSE, #hide messages and warnings
+                      warning = FALSE, 
+                      fig.path = "../Output/") #set figure path output
+```
+
+# Introduction
+Today, we will use **Palmer penguins** data to create figures and tables.  
+*Species* are:  
+  - Gentoo  
+  - Adelie   
+  - Chinstrap  
+
+*Islands* are:  
+  - Biscoe  
+  - Torgersen  
+  - Dream  
+
+# Load libraries
+Load libraries for palmer penguins, tidyverse, here, and kableExtra
+
+```{r}
+library(palmerpenguins)
+library(tidyverse)
+library(here)
+library(kableExtra)
+library(ghibli)
+```
+
+# Make a table 
+Make a table for mean body mass by species and island
+```{r}
+penguins %>%
+  group_by(island, species) %>% #group by island and species
+  summarise(body_mass_mean = mean(body_mass_g, na.rm = TRUE)) %>% #calculate mean body mass
+  kbl(col.names = c("Island", "Species", "Mean Body Mass (g)")) %>% #use kableExtra package to create nice table
+  kable_classic() #change table theme
+
+```
+
+# Make a figure
+
+Make a **figure** showing body mass (g) and sex
+
+```{r 2021_03_03_lab_assignment, fig.width = 8, fig.height = 5, fig.cap = "Figure 1. Penguin body mass (g) by sex and species", fig.align= "center"}
+penguins %>%
+   filter(complete.cases(.)) %>% #take out NA rows
+   ggplot(mapping = aes(x = sex, y = body_mass_g, fill = species)) + #set aesthetics
+   geom_violin(position="dodge", alpha=0.5, outlier.colour="transparent") + #violin plot aesthetics
+   geom_jitter(alpha = 0.5, color = "purple", width = 0.4) + #add jitter points with color and aesthetics
+   facet_wrap(~species) + #facet wrap by species
+   scale_fill_manual(values = ghibli_palette("SpiritedMedium")[c(3, 4, 2)]) + #set color scheme
+   theme_classic() + #set theme to classic
+   guides(fill = FALSE, color = FALSE) + #take out legend guide
+   labs(x = "Sex", y = "Body Mass (g)", #label x and y axes
+        title = "Body Mass (g) by Sex and Species", #set title and caption 
+        caption = "Palmer Station LTER/palmerpenguins package") 
+   
+```
+![](https://media.tenor.com/images/20be3abd731fe52f8b74480e6b404053/tenor.gif)
+

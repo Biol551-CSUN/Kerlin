@@ -1,0 +1,58 @@
+---
+title: "RMarkdown Practice"
+author: "Jamie Kerlin"
+date: "3/3/2021"
+output: 
+  html_document: 
+   toc: TRUE
+   toc_float: TRUE
+   theme: spacelab
+---
+
+```{r setup, include=FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      message = FALSE,
+                      warning = FALSE)
+```
+
+# Introduction
+Today, we will use **Palmer penguins** data to manipulate figures in RMarkdown.
+
+# Load libraries
+
+```{r}
+library(palmerpenguins)
+library(tidyverse)
+library(here)
+library(kableExtra)
+```
+
+# Make a plot
+
+```{r PengFig, fig.width = 8, fig.height = 5, fig.cap = "Penguin flipper length by species and island", fig.align= "center", fig.path = "../Output/"}
+penguinfigure <- penguins %>%
+  ggplot(mapping = aes(x = species, y = flipper_length_mm, color = island)) +
+  geom_boxplot()
+
+penguinfigure
+```
+
+# Make a table
+
+| Time | Session | Topic
+| :----- | :------: | --------: |
+| _left_| _center_ | _right_ |
+| 01:00 | 1 | Anatomy |
+| 01:50 |   | *Break* |
+| 02:00 | 2  | Tables |
+| 02:45|    | *Break* |
+
+```{r}
+penguins %>%
+  group_by(species) %>%
+  summarise(bill_mean = mean(bill_length_mm, na.rm = TRUE)) %>%
+  kbl() %>%
+  kable_classic() %>%
+  row_spec(2, bold = TRUE, color = "white", background = "blue")
+```
+
