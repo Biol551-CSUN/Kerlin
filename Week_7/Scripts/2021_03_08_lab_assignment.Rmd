@@ -1,0 +1,63 @@
+---
+title: "Lab Assigment- Meteorite Data"
+author: "Jamie, Roland, Claudia, Jasmin"
+date: "2021-03-08"
+output: 
+  html_document: 
+   toc: TRUE
+   toc_float: TRUE
+   theme: spacelab
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+# Load libraries
+```{r}
+library(tidyverse)
+library(here)
+library(maps)
+library(mapdata)
+library(mapproj)
+```
+
+# Load data
+Load world data and meteorite data.
+```{r}
+#Load data
+
+meteorites <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-06-11/meteorites.csv")
+world <- map_data("world")
+
+```
+
+
+# Create world map
+We created a world map indicating the location of the meteorites landed. The meteorites are labeled by mass in grams.
+```{r}
+ggplot() + 
+  geom_polygon(data = world, #get data for world map
+               aes(x = long, #create world map
+                   y = lat, 
+                   group = group,
+                   fill = region), #create region colors
+               color = "black") + #region outlines
+  geom_point(data = meteorites, #get data from meteorites
+             aes(x = long, #map meteorites to world map
+                 y = lat,
+                 size = mass), #change size of points
+             alpha = 0.5, #change alpha value of points
+             color = "white") + #change color of points
+  guides(fill = FALSE) + #take legend out for fill
+  theme_void() + #set theme
+  theme(panel.background = element_rect(fill = "lightblue"), #set panel background
+        plot.background = element_rect(fill = "lightblue")) + #set plot background
+  coord_map(projection = "mercator", #set projection type
+            xlim = c(-180, 180)) + #if I try to erase this, it breaks my map, that's why it's weird
+  labs(title = "Meteorite mass in grams by location", #add title, caption, legend
+       caption = "Data from Meteoritical Society by NASA",
+       size = "Mass (g)")
+```
+
+![](https://media4.giphy.com/media/fQZX2aoRC1Tqw/giphy.gif)
