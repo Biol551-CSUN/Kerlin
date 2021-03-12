@@ -10,7 +10,10 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+knitr::opts_chunk$set(echo = TRUE, #show code
+                      warning = FALSE, #hide warnings and messages
+                      message = FALSE, 
+                      fig.path = "../Output/") #set output path for figure
 ```
 
 # Load libraries
@@ -35,7 +38,7 @@ world <- map_data("world")
 
 # Create world map
 We created a world map indicating the location of the meteorites landed. The meteorites are labeled by mass in grams.
-```{r}
+```{r 2021_03_08_lab_assignment}
 ggplot() + 
   geom_polygon(data = world, #get data for world map
                aes(x = long, #create world map
