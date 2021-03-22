@@ -6,7 +6,11 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE,
+	fig.path = "../Output/")
 ```
 
 # Introduction
@@ -27,29 +31,30 @@ library(ghibli)
 
 # Load data
 ```{r}
+
 penguins <- penguins #saving the penguins data to the environment
-penguin_image <- readPNG(file.path("Week_7", #background image for bad plot
-                                  "Data",
-                                  "penguin_image.png"))
+#I had to save my penguin image in Scripts because for whatever reason, I can't switch the working directory to 
+#a different folder and the here function/file.path function aren't working either. Sorry!
+penguin_image <- readPNG("penguin_image.png")
 ```
 
 # Make bad plot
-This first plot is a *bad* plot for data visualization for several reasons:  
+This first plot is a **bad** plot for data visualization for several reasons:  
  - The background image is inappropriate and distracting  
  - The color choice for the points are hard to see, the green and yellow are very bright,
  the brown is hard to see, and the purple outline clashes colors and is distracting  
  - The size of the points is set too large, they overlap with the other points and are hard
- to distinguish  
+ to distinguish   
  - The points have different shapes and colors, but there is no legend to tell us what they represent  
- - The x and y axis limits are not appropriately set
- - The title does not explain much
+ - The x and y axis limits are not appropriately set  
+ - The title does not explain much  
  - The axis titles have different colors, sizes (way too big), and fonts and are not renamed for proper capitalization  
  
-```{r}
+```{r 2021_03_22_lab_assigment_bad}
 ggplot(data = penguins, #data from palmer penguins packakge
        mapping = aes(x = bill_length_mm, #set x and y axes
                      y = bill_depth_mm)) +
-  background_image(penguin_image) + #set background image for plot
+    background_image(penguin_image) +
   geom_point(aes(shape = island), color = "purple", size = 6) + #set aesthetics for background points
   geom_point(aes(color = species, shape = island), size = 4) + #set aesthetics for front points
   guides(color = FALSE, shape = FALSE) + #remove the guides for color and shape
@@ -59,23 +64,20 @@ ggplot(data = penguins, #data from palmer penguins packakge
         axis.title.y = element_text(color = "magenta", face = 12, size= 15))  +
   xlim(c(30, 100)) + #set x and y limits
   ylim(c(10, 20)) 
-  ggsave(here("Week_7", #save plot 
-              "Output",
-              "2021_03_22_bad_plot_assignment.png")) 
 ```
  
 
 # Make a good plot
-The following plot is a *good* way to visualize data. It does not have any of the poor characteristics that
+The following plot is a **good** way to visualize data. It does not have any of the poor characteristics that
 were present in the bad plot. Additionally, it is a good plot *because*:  
  - It shows the distributions of the data as well as points  
  - The theme and color palette are not distracting and the colors are distinguishable  
- - It clearly labels what the colors and facets are for
- - By faceting, it is less information clumped together and is easier to read
- - The title and axis labels are clean, match, and are informative
- - The caption clearly says where the data is from
+ - It clearly labels what the colors and facets are for  
+ - By faceting, it is less information clumped together and is easier to read  
+ - The title and axis labels are clean, match, and are informative  
+ - The caption clearly says where the data is from  
  
-```{r}
+```{r 2021_03_22_lab_assignment_good}
 penguins <- na.omit(penguins) %>% #remove NAs in sex column
   mutate(sex = recode(sex, "female" = "Female", "male" = "Male")) 
 #recode names so properly capitalized in facet
@@ -97,10 +99,7 @@ ggplot(data = penguins, #data from palmer penguins
          caption = "Source: Palmer Station LTER / palmerpenguins packages") +
   #set fill and color scale to specific colors in ghibli palette
   scale_fill_manual(values = ghibli_palette("YesterdayMedium")[c(4, 5, 6)]) +
-  scale_color_manual(values = ghibli_palette("YesterdayMedium")[c(4, 5, 6)]) +
-  ggsave(here("Week_7", #save plot
-              "Output",
-              "2021_03_22_good_plot_assignment.png")) 
+  scale_color_manual(values = ghibli_palette("YesterdayMedium")[c(4, 5, 6)]) 
 ```
  
  
