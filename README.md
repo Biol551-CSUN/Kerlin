@@ -20,3 +20,7 @@
 * [Week 6](https://github.com/Biol551-CSUN/Kerlin/tree/main/Week_6)
    * [Week 6 Scripts](https://github.com/Biol551-CSUN/Kerlin/tree/main/Week_6/Scripts)
    * [Week 6 Output](https://github.com/Biol551-CSUN/Kerlin/tree/main/Week_6/Output)
+* [Week 7](https://github.com/Biol551-CSUN/Kerlin/tree/main/Week_7)
+   * [Week 7 Data](https://github.com/Biol551-CSUN/Kerlin/tree/main/Week_7/Data)
+   * [Week 7 Scripts](https://github.com/Biol551-CSUN/Kerlin/tree/main/Week_7/Scripts)
+   * [Week 7 Output](https://github.com/Biol551-CSUN/Kerlin/tree/main/Week_7/Output)
