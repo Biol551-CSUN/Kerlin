@@ -1,0 +1,99 @@
+---
+title: 'Week 8: Homework Assignment'
+author: "Jasmin, Roland, Jamie, Claudia"
+date: "3/24/2021"
+output: 
+  html_document:
+   toc: TRUE
+   toc_float: TRUE
+   theme: cerulean
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, #we want to show our script, so keeping this TRUE
+                      message = FALSE, #hide messages and warnings
+                      warning = FALSE, 
+                      fig.path = "../Output/") #set figure path output
+```
+
+# Introduction  
+
+*Week 8* introduced formulas that the user can create and customize to help organize and streamline data and incorporation of it into graphs.
+
+
+# Load Libraries
+
+```{r}
+library(tidyverse)
+library(here)
+library(palmerpenguins)
+library(praise)
+library(PNWColors)
+library(ggthemes)
+library(magick)
+```
+
+# Non-Plot Useful Function: Grams to Pounds  
+
+We chose to use a formula that would be useful to convert **grams** to **pounds**. 
+
+```{r}
+## non plot function: Grams to Pounds 
+g_to_lb <- function(weight_g){
+  weight_lb <- (weight_g * .00220462)
+  return(weight_lb)
+}
+g_to_lb(100)
+g_to_lb(50)
+
+
+```
+
+# Plot Function: The Tail of Two Plots  
+
+<center>
+![](https://media1.tenor.com/images/954056ead977c1efe439685b61b35c83/tenor.gif?itemid=17081291)
+</center>
+
+
+We are using the **Palmer Penguins** Data and incorporated *Week 8's* Lecture of creating formulas in our script. 
+
+```{r 2021_03_24_homework_1, fig.width = 8, fig.height = 5, fig.cap = "Figure 1. Penguin body mass (g) by sex and species", fig.align= "center"}
+#### Create boxplot ##################################################
+myplot<-function(data = penguins, x, y, lines=TRUE ) {
+  pal<-pnw_palette("Shuksan",3, type = "discrete") # my color palette
+penguins <- na.omit(penguins) #remove NAs in sex and species
+
+penguins <- penguins %>%
+  mutate(sex = recode(sex, 'male' = "Male", 'female' = "Female")) #change to proper capitalization
+
+ggplot(data, aes(x = {{x}}, y = {{y}} ,  fill = species))+ #fill color species
+  geom_boxplot() +
+  facet_grid(~sex, switch = "x") + #facet for sex within species
+  scale_fill_manual(values = pal) + #PNW palette fill
+  theme_classic() + #change theme
+  theme(axis.title.x = element_text(color = "deepskyblue1", face = 2), #change axis text color
+        axis.title.y = element_text(color = "deepskyblue1", face = 2))+
+  ggsave(here("Week_9", "Output", "pengusrgoodbois.png"), #save plot
+         width = 7, height = 5)}
+
+myplot(x=island, y=body_mass_g) +
+labs(title = "Comparison of Body Mass (g) Across Species Within Sex", #add title
+       x = "Species", #change x axis label
+       y = "Body Mass (g)", #change y axis label
+       fill = "Species", #change legend label
+       caption = "Source: Palmer Station LTER / palmerpenguins packages")
+```
+
+```{r 2021_03_24_homework_2, fig.width = 8, fig.height = 5, fig.cap = "Figure 2. Penguin bill length (mm) by sex and species", fig.align= "center"}
+# Creating second plot
+myplot(x=island, y=bill_length_mm) +
+  labs(title = "Comparison of Bill Length (mm) Across Species Within Sex", #add title
+       x = "Species", #change x axis label
+       y = "Bill Length (mm)", #change y axis label
+       fill = "Species", #change legend label
+       caption = "Source: Palmer Station LTER / palmerpenguins packages")
+```
+<center>
+![](https://lh3.googleusercontent.com/proxy/gUGAjHtE5o_9jFOzEEOP6sLt_uT0KH252yO8b6P-jn_Wr0DpN11mTYSA1a0IVjUZIfGlozB546PweXNVZd4e-q2pP2vHk_epoW0m2m1fdE3V3GBZOosqber1H_qOAq9O4IMo4ZcroFKqZQ)
+</center>
