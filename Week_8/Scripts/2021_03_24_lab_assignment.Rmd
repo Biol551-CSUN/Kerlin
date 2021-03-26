@@ -14,6 +14,7 @@ knitr::opts_chunk$set(echo = TRUE, #we want to show our script, so keeping this 
                       message = FALSE, #hide messages and warnings
                       warning = FALSE, 
                       fig.path = "../Output/") #set figure path output
+getwd()
 ```
 
 # Introduction  
@@ -58,7 +59,7 @@ g_to_lb(50)
 
 We are using the **Palmer Penguins** Data and incorporated *Week 8's* Lecture of creating formulas in our script. 
 
-```{r 2021_03_24_homework_1, fig.width = 8, fig.height = 5, fig.cap = "Figure 1. Penguin body mass (g) by sex and species", fig.align= "center"}
+```{r 2021_03_24_lab_assignment_1, fig.width = 8, fig.height = 5, fig.cap = "Figure 1. Penguin body mass (g) by sex and species", fig.align= "center"}
 #### Create boxplot ##################################################
 myplot<-function(data = penguins, x, y, lines=TRUE ) {
   pal<-pnw_palette("Shuksan",3, type = "discrete") # my color palette
@@ -74,7 +75,7 @@ ggplot(data, aes(x = {{x}}, y = {{y}} ,  fill = species))+ #fill color species
   theme_classic() + #change theme
   theme(axis.title.x = element_text(color = "deepskyblue1", face = 2), #change axis text color
         axis.title.y = element_text(color = "deepskyblue1", face = 2))+
-  ggsave(here("Week_9", "Output", "pengusrgoodbois.png"), #save plot
+  ggsave(here("Week_8", "Output", "pengusrgoodbois.png"), #save plot
          width = 7, height = 5)}
 
 myplot(x=island, y=body_mass_g) +
@@ -85,7 +86,7 @@ labs(title = "Comparison of Body Mass (g) Across Species Within Sex", #add title
        caption = "Source: Palmer Station LTER / palmerpenguins packages")
 ```
 
-```{r 2021_03_24_homework_2, fig.width = 8, fig.height = 5, fig.cap = "Figure 2. Penguin bill length (mm) by sex and species", fig.align= "center"}
+```{r 2021_03_24_lab_assignment_2, fig.width = 8, fig.height = 5, fig.cap = "Figure 2. Penguin bill length (mm) by sex and species", fig.align= "center"}
 # Creating second plot
 myplot(x=island, y=bill_length_mm) +
   labs(title = "Comparison of Bill Length (mm) Across Species Within Sex", #add title
@@ -95,5 +96,5 @@ myplot(x=island, y=bill_length_mm) +
        caption = "Source: Palmer Station LTER / palmerpenguins packages")
 ```
 <center>
-![](https://lh3.googleusercontent.com/proxy/gUGAjHtE5o_9jFOzEEOP6sLt_uT0KH252yO8b6P-jn_Wr0DpN11mTYSA1a0IVjUZIfGlozB546PweXNVZd4e-q2pP2vHk_epoW0m2m1fdE3V3GBZOosqber1H_qOAq9O4IMo4ZcroFKqZQ)
+![](https://lh3.googleusercontent.com/proxy/Y_AKdcIue4p372wTA23WPPe4uawyttZzm6DNvjFTy-miTFEovJRSYJ-SJ5JZxv31nZHkhNBF0DRBIfKbQWMKS5rNLbO0U3CHMfH2Sa1ejN7Mhk1eWzEKwAM9Ti3x7L2lavqygOaGk59RQA)
 </center>
