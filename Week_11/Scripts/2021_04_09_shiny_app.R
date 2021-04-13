@@ -12,7 +12,11 @@ library(RColorBrewer)
 library(ggthemes)
 
 # Load Data
-BB <- read.csv(here("Week_10","Data","HatchBabyExport.csv"))
+BB <- read_csv(here("Week_10","Data","HatchBabyExport.csv"))
+BB %>% write_csv(here("Week_11",
+                      "Data",
+                      "HatchBabyExport.csv"))
+
 
 # Wrangle Data, separated by babies 
 Bubble_Buns <- BB %>%
