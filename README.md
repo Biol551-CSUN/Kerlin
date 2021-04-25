@@ -33,4 +33,3 @@
 * [Week 11](https://github.com/Biol551-CSUN/Kerlin/tree/main/Week_11)
    * [Week 11 Data](https://github.com/Biol551-CSUN/Kerlin/tree/main/Week_11/Data)
    * [Week 11 Scripts](https://github.com/Biol551-CSUN/Kerlin/tree/main/Week_11/Scripts)
-   * [Week 11 Output](https://github.com/Biol551-CSUN/Kerlin/tree/main/Week_11/Output)
